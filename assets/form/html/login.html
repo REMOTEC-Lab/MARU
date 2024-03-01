@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="theme-color" content="#00ADEF">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>Coffee Maker Kiosk</title>
+
+    <link href="../css/reset.css" rel="stylesheet">
+    <link href="../fonts/Pretendard/fonts.css" rel="stylesheet">
+    <link href="../fonts/Montserrat/fonts.css" rel="stylesheet">
+
+    <!-- jQuery -->
+    <script src="../../js/jquery-3.7.0.min.js"></script>
+    <script src="../../js/jquery.jscssfile.min.js"></script>
+
+    <!-- jQuery Modal -->
+    <link href="../../js/plugin/jquery.modal.min.css" rel="stylesheet">
+    <script src="../../js/plugin/jquery.modal.min.js"></script>
+
+    <script src="../marujs/WebApp.func.min.js"></script>
+    <script src="../marujs/WebApp.min.js"></script>
+    <script src="layout.js"></script>
+
+    <script src="../marujs/MaruScript.js"></script>
+    <script src="../marujs/WebApp.site.js"></script>
+
+    <link href="../css/style.css" rel="stylesheet" title="maru">
+</head>
+
+<body>
+    <div data-role="page" id="page-login" data-page="login"> <!--class="wrap"-->
+        <!--<div data-role="header">
+        <div data-role="top"></div>-->
+
+        <div data-role="body" id="login-body">
+            <div data-role="content" id="login_one" data-loc="login" class="wrap intro">
+                <!--<p class="SYS-BTN-GO_START" style="display: none"></p>-->
+                <section class="left">
+                    <img src="../source/intro_cup.png" class="img">
+                    <img src="../source/intro_title.svg" alt="커피메이커 관리자모드">
+                </section>
+                <section class="right">
+                    <div class="inner">
+                        <h2>Login</h2>
+                        <div class="item">
+                            <p>User ID</p>
+                            <input class="SYS-TXT-USER_ID input" type="text" placeholder="OWNER">
+                        </div>
+                        <div class="item">
+                            <p>PASSWORD</p>
+                            <input class="SYS-TXT-USER_PW input" type="password" placeholder="*******">
+                        </div>
+                        <a id="SYS-BTN-LOGIN" class="loginBt">Login</a>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <!--<div data-role="bottom"></div>
+        <div data-role="footer"></div>-->
+    </div>
+    <div id="SYS-CMODAL-CONFIRM" class="modal">
+        <div class="inner">
+            <h2 class="SYS-TXT-WARNING">----<br>********</h2>
+            <div class="btn_wrap">
+                <a class="SYS-MODAL-BTN-CONFIRM btn btn-primary">확인</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
