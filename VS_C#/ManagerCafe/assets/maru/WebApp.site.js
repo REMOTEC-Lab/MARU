@@ -240,10 +240,7 @@ var btn_handler = function(e){
     {
         if( ! $(this).hasClass('SYS-toggle') )
         {
-            if ($(this).hasClass('SYS-invert')) {
-                if (!$(this).hasClass('active')) {
-                    return;
-                }
+            if (! $(this).hasClass('SYS-invert')) {
                 $(this).addClass('deactive').removeClass('active');
 
                 if (resetTimerID) {
