@@ -101,7 +101,7 @@ var ConfirmModal = {
     Btn: {
         'CONFIRM': function (e) {
             (e.preventDefault) ? e.preventDefault() : e.returnValue = false;
-            Maru_app.btn_Sound_BEEP();
+            //Maru_app.btn_Sound_BEEP();
 
             //console.log(oPageInfo.page + ' : Close1');
             //ConfirmModal.confirmBox('hide');
@@ -127,7 +127,7 @@ var ConfirmModal = {
         },
         'CANCEL': function (e) {
             (e.preventDefault) ? e.preventDefault() : e.returnValue = false;
-            Maru_app.btn_Sound_BEEP();
+            //Maru_app.btn_Sound_BEEP();
             if (MODAL_ID != null) {
                 var dialog = $('#SYS-' + MODAL_ID);
                 var dialog_INNER = dialog.find('.inner'); // buttons bloc
@@ -240,10 +240,7 @@ var btn_handler = function(e){
     {
         if( ! $(this).hasClass('SYS-toggle') )
         {
-            if ($(this).hasClass('SYS-invert')) {
-                if (!$(this).hasClass('active')) {
-                    return;
-                }
+            if (!$(this).hasClass('SYS-invert')) {
                 $(this).addClass('deactive').removeClass('active');
 
                 if (resetTimerID) {
