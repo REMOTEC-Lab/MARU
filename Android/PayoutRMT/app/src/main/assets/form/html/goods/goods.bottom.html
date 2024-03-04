@@ -1,0 +1,92 @@
+<section id="orderList">
+    <div id="SYS-ORDER" class="list" style="bottom:0px;">
+        <!--$('.item[style*="display: block"]') or $('.item[style*="display: none"]')-->
+        <div class="SYS-ORDER-LIST item" data-name="copy" style="display:none;">
+            <div class="left">
+                <p class="num">1</p>
+                <p class="name">아이스아메리카노</p>
+                <img class="shot" src="../source/price_addShot.svg" alt="샷추가">
+            </div>
+            <div class="right">
+                <div class="count">
+                    <img class="SYS-BTN-G_MINUS" data-name="0" src="../source/price_minus.svg">
+                    <span class="countNum">1</span>
+                    <img class="SYS-BTN-G_PLUS" data-name="0" src="../source/price_plus.svg">
+                </div>
+                <p class="price">3,000</p>
+                <img class="SYS-BTN-G_ERASER" data-name="0" src="../source/price_remove.svg" alt="Remove">
+            </div>
+        </div>
+    </div><!--End .list-->
+
+    <div class="buttons">
+        <div class="SYS-BTN-GLIST_UP bt up">
+            <img src="../source/list_up.svg">
+        </div>
+        <div class="scroll">
+            <span class="GOODS_LIST_BAR bar"></span>
+        </div>
+        <div class="SYS-BTN-GLIST_DOWN bt down">
+            <img src="../source/list_down.svg">
+        </div>
+    </div>
+</section>
+
+<section id="goods_pay">
+    <div class="left">
+        <p>주문수량 : <b class="count">0</b></p>
+        <p>주문금액 : <b class="price">0</b></p>
+        <a class="SYS-BTN-POINT btn_point">
+            <!--<p><br>사용할 포인트 : <b class="upoint">10000</b>P&nbsp;&nbsp;(누적포인트 : <b class="tpoint">40000</b>P)</p>-->
+            <p><br>누적포인트 : <b class="SYS-TXT-MPOINT">10000</b>P (<b class="SYS-TXT-USING_POINT">1000</b>P 이상 사용가능)</p>
+        </a>
+</div>
+    <div class="right btn_wrap">
+        <a class="SYS-BTN-ALL_DEL btn btn-secondary">주문삭제</a>
+        <a class="SYS-BTN-PAYMENT btn btn-red"><img src="../source/ico_order.svg">결제하기</a>
+        <!--<a href="#modalPoint" rel="modal:open" class="btn btn-red"><img src="../source/ico_order.svg">결재하기</a>-->
+    </div>
+</section>
+
+<!-- Modal : 포인트 -->
+<div id="modalPoint" class="modal">
+    <div class="inner">
+        <h2>포인트를 사용하시겠습니까?</h2>
+        <div class="input_wrap">
+            <div class="point">
+                <p>누적포인트</p>
+                <input class="input" type="nember" value="25,000" readonly="">
+                <p>P</p>
+            </div>
+            <div class="explain red">전체사용</div>
+        </div>
+
+        <div class="input_wrap">
+            <div class="point">
+                <p>사용포인트</p>
+                <input class="input" type="nember" value="0" readonly="">
+                <p>P</p>
+            </div>
+            <div class="explain">최소 사용 포인트는 <b>1,000p</b>입니다.</div>
+        </div>
+
+        <div class="keypad">
+            <button type="button" class="key" data-key="1">1</button>
+            <button type="button" class="key" data-key="2">2</button>
+            <button type="button" class="key" data-key="3">3</button>
+            <button type="button" class="key" data-key="4">4</button>
+            <button type="button" class="key" data-key="5">5</button>
+            <button type="button" class="key" data-key="6">6</button>
+            <button type="button" class="key" data-key="7">7</button>
+            <button type="button" class="key" data-key="8">8</button>
+            <button type="button" class="key" data-key="9">9</button>
+            <button type="button" class="key-clear">C</button>
+            <button type="button" class="key" data-key="0">0</button>
+            <button type="button" class="key-del"><img src="../source/key-del.svg"></button>
+        </div>
+        <div class="btn_wrap">
+            <a href="#" rel="modal:close" class="btn btn-secondary">사용없이 결재</a>
+            <a href="orderList.html" class="btn btn-primary">사용 결재</a>
+        </div>
+    </div>
+</div>

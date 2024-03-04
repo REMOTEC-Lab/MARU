@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<!--<div data-include-path="header.html"></div>-->
+<head>
+    <meta charset="utf-8">
+    <!--FireHD initial-scale=0.6666:1600x1920</div>-->
+    <meta name="viewport" content="width=device-width, initial-scale=0.6666, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="theme-color" content="#00ADEF">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>Coffee Maker Kiosk</title>
+
+    <link href="../css/reset.css" rel="stylesheet">
+    <link href="../fonts/Pretendard/fonts.css" rel="stylesheet">
+    <link href="../fonts/Montserrat/fonts.css" rel="stylesheet">
+
+    <script src="../../jquary/jquery-3.7.0.min.js"></script>
+    <script src="../../jquary/jquery.jscssfile.min.js"></script>
+
+    <!-- jQuery Modal -->
+    <link href="../../jquary/plugin/jquery.modal.min.css" rel="stylesheet">
+    <script src="../../jquary/plugin/jquery.modal.min.js"></script>
+
+    <script src="../../maru/WebApp.func.min.js"></script>
+<!--    <script src="../../maru/WebApp.min.js"></script>-->
+    <script src="../../maru/WebApp.js"></script>
+    <script src="layout.js"></script>
+    <script src="../../maru/MaruScript.js"></script>
+    <script src="../../maru/WebApp.site.js"></script>
+
+    <link href="../css/style.css" rel="stylesheet" title="maru">
+</head>
+
+<body>
+<div data-role="page" id="page-start" data-page="start" class="wrap">
+    <!--<div data-role="header">
+    <div class="start-top space"></div>
+    </div>
+    <div data-role="top"></div>-->
+
+    <div data-role="body" id="start-body">
+        <div data-role="content" id="start_one" data-loc="start">
+            <!--<div data-role="content" id="start_one" data-loc="start" class="pad-wrap bg-color space">-->
+            <p class="SYS-BTN-GO_MENAGER" style="display: none"></p>
+            <main class="alignCenter">
+                <!--<a href="#SYS-PMODAL-USEPOINT" rel="modal:open"></a>-->
+                <a class="SYS-BTN-IS_MEMBER"></a>
+                <img src="../source/main_coffee.png" class="gabe">
+                <img src="../source/logo.svg" class="logo">
+                <div class="touch alignCenter">
+                    <img src="../source/ico_touch.svg">
+                    <p>화면을 터치하시면,<br>메뉴를 선택 할 수 있습니다.</p>
+                </div>
+                <div class="explain">
+                    <div class="item">
+                        <img src="../source/explain_1.svg">
+                        <p>메뉴선택</p>
+                    </div>
+                    <img src="../source/explain_arrow.svg" class="arrow">
+                    <div class="item">
+                        <img src="../source/explain_2.svg">
+                        <p>결제</p>
+                    </div>
+                    <img src="../source/explain_arrow.svg" class="arrow">
+                    <div class="item">
+                        <img src="../source/explain_3.svg">
+                        <p>주문번호</p>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+    <!--<div data-role="bottom"></div>
+    <div data-role="footer"></div>-->
+</div>
+
+<div id="SYS-CMODAL-CONFIRM" class="modal">
+    <div class="inner">
+        <h2 class="SYS-TXT-WARNING">----<br>********</h2>
+        <div class="btn_wrap">
+            <a class="SYS-MODAL-BTN-CONFIRM btn btn-primary">확인</a>
+            <!--<class="SYS-MODAL-BTN-CANCEL btn btn-red">영수증 출력</a>-->
+        </div>
+    </div>
+</div>
+</body>
+</html>
