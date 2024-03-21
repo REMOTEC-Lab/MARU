@@ -1,0 +1,88 @@
+<div data-role="page" id="page-manage" data-page="manage" class="sub">
+    <!--// SBU 레이아웃 HEADER -->
+    <div data-role="header" class="header"></div>
+    <!--// SBU 레이아웃 상단 -->
+    <!--<div data-role="top"></div>-->
+
+    <div data-role="body" id="manage-body">
+        <!--<div data-role="content" id="profile_one" data-loc="profile" class="pad-wrap bg-color space">-->
+        <div data-role="content" id="manage_profile" data-loc="manage">
+            <main class="profil">
+                <h3>관리자 정보</h3>
+                <section>
+                    <div class="item">
+                        <h4>현재 접속자</h4>
+                        <p class="SYS-TXT-MANAGE_CON currentId">ROOT</p>
+                    </div>
+                    <!--<div class="item">
+            <h4>변경 ID</h4>
+            <input class="input" type="text" readonly>
+        </div>-->
+                    <div class="item">
+                        <h4>새 비밀번호</h4>
+                        <input id ="SYS-TXT-MANAGE_PW1" class="input" type="password" placeholder="******">
+                    </div>
+                    <div class="item">
+                        <h4>새 비밀번호 확인</h4>
+                        <input id ="SYS-TXT-MANAGE_PW2" class="input" type="password" placeholder="******">
+                        <p class="SYS-TXT-PW_CONFORM explain red"></p>
+                    </div>
+                </section>
+
+                <div class="line"></div>
+
+                <section>
+                    <div class="item">
+                        <h4>가게명</h4>
+                        <input id="SYS-TXT-STORE_NAME" class="input" type="text" placeholder="">
+                    </div>
+                    <div class="item">
+                        <h4>사업자번호</h4>
+                        <input id="SYS-TXT-STORE_REG" class="input" type="text" placeholder="">
+                    </div>
+                    <div class="item">
+                        <h4>가맹 점주</h4>
+                        <input id="SYS-TXT-OWNER_NAME" class="input" type="text" placeholder="">
+                    </div>
+                    <div class="item">
+                        <h4>가맹번호</h4>
+                        <input id="SYS-TXT-STORE_NUM" class="input" type="text" placeholder="">
+                    </div>
+                    <!-- 2023-11-06 긴인풋 추가 -->
+                    <div class="item">
+                        <h4>가맹점 주소</h4>
+                        <input id="SYS-TXT-STORE_ADDRESS" class="input width" type="text" placeholder="">
+                    </div>
+                    <!--<div class="item">
+        <h4>E-MAIL</h4>
+        <input class="input" type="text" placeholder="" readonly>
+        <p class="explain red">E메일 주소를 입력하여 주십시오</p>
+    </div>-->
+                    <div class="item">
+                        <h4>가맹점 전화번호</h4>
+                        <input id="SYS-TXT-STORE_TEL" class="input" type="text" placeholder="">
+                        <!--<p class="explain">* '-'없이 숫자만 입력 *</p>-->
+                    </div>
+                    <div class="item">
+                        <h4>pushover 계정</h4>
+                        <input id="SYS-TXT-PUSHOVER" class="input width" type="text" placeholder="">
+                        <!--<p class="SYS-BTN-PUSHOVER explain">*알람 전송*</p>-->
+                    </div>
+                </section>
+
+                <div class="line"></div>
+                <section>
+                    <div class="item">
+                        <h4>현재 비밀번호</h4>
+                        <input id ="SYS-TXT-MANAGE_PW0" class="input" type="password" placeholder="******">
+                    </div>
+                </section>
+                <div id="SYS-BTN-PROFILE_EDIT" class="bt">정보수정</div>
+            </main>
+        </div>
+    </div>
+
+    <div data-role="bottom" class="nav"> </div>
+    <!--<div data-role="footer" id="footer" class="copyright"></div>-->
+
+</div>
