@@ -247,10 +247,30 @@
     <Content Include="assets\form\html\manage\manage_coffee.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="assets\form\marujs\login\WebApp_login.js" />
-    <Content Include="assets\form\marujs\login\WebApp_login_one.js" />
-    <Content Include="assets\form\marujs\manage\WebApp_manage.js" />
-    <Content Include="assets\form\marujs\manage\WebApp_manage_coffee.js" />
+    <Content Include="assets\form\marujs\login\WebApp_login.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\form\marujs\login\WebApp_login_one.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\form\marujs\manage\WebApp_manage.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\form\marujs\manage\WebApp_manage_coffee.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\maru\MaruScript.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\maru\WebApp.func.min.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\maru\WebApp.min.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\maru\WebApp.site.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="assets\form\source\add.svg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -318,10 +338,6 @@
     <Content Include="assets\js\plugin\jquery.modal.min.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="assets\maru\MaruScript.js" />
-    <Content Include="assets\maru\WebApp.func.min.js" />
-    <Content Include="assets\maru\WebApp.min.js" />
-    <Content Include="assets\maru\WebApp.site.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
