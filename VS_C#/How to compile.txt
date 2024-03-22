@@ -1,0 +1,13 @@
+메뉴 -> 빌드 (B) ->  ManagerCafe 정리 (N) 
+그리고
+메뉴 -> 빌드 (B) ->  솔루션 정리 (C) 
+그리고
+디버깅 시작 (F5)  또는 솔루션 빌드(F6)
+
+---------------------------------------------------------------------------------------------
+
+MENU -> Build (B) ->  Clean MangerCafe(N) 
+and
+MENU -> Build (B) ->  Clean Solution (C) 
+and
+Start Debugging (F5) or Build Solution  (F6)
