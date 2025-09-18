@@ -15,6 +15,7 @@ class WebApp_start(QObject):
         self.m_sPage = None
         self.time_thread = None
         self.th_is_running = False
+        self.count = 0
 
     @pyqtSlot(str)
     def pageLoaded(self, page):
@@ -81,9 +82,5 @@ class WebApp_start(QObject):
             #print('list dat : ' + self.mMaruApp.JsonMultiGetData("y1", chartData[2]))
             self.mMaruApp.drawChartJS("remoChart", self.mMaruApp.JsonMultiGetData("y1", chartData[2]))
 
-        print(f"HTML에서 호출됨: {message}")
-        # HTML/JavaScript로 응답을 다시 보낼 수 있습니다.
-        # runJavaScript를 사용하여 HTML의 함수를 호출합니다.
-        # if self.view:
-        #     # HTML/JavaScript로 응답을 다시 보냅니다.
-        #     self.view.page().runJavaScript(f"setPythonFunction('파이썬에서 응답: {message}');")
+        print(f"HTML에서 호출됨: {message} <= {self.count}")
+        self.count += 1
