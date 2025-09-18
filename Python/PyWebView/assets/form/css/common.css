@@ -1,0 +1,240 @@
+@charset "utf-8";
+
+* { font-family: 'NanumSquareNeo'; box-sizing: border-box;}
+html, body {
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    font-size: 14px; /*font-weight:400;*/
+}
+body { background:#fff;max-width: 1920px;max-height: 1080px;cursor: default;}
+input, button, select { font-size:14px; font-family: 'NanumSquareNeo';}
+
+h1, h2, h3, h4, h5, h6, div, p, dl, dt, dd, ul, ol, li, table, thead, tbody, tfoot, tr, td, caption {margin:0;padding:0; }
+h1, h2, h3, h4, h5, h6{line-height:1;}
+ol, ul, li { list-style:none; }
+a {text-decoration:none; color:inherit; }
+a:hover {text-decoration:none;}
+em,address { font-style:normal;}
+input[type="text"],
+input[type="password"],
+input[type="tel"]{ padding:0; margin:0; vertical-align:middle;}
+input[type="submit"]{ -webkit-appearance: none;}
+table {border-collapse: collapse; border-spacing: 0; }
+table td { padding-top:3px; box-sizing:border-box;}
+
+input[type="text"]::-webkit-input-placeholder { color:#999;}
+input[type="text"]:-moz-placeholder { color:#999;}
+input[type="text"]::-moz-placeholder { color:#999;}
+input[type="text"]:-ms-input-placeholder { color:#999;}
+input[type="text"]::placeholder { color:#999;}
+
+caption, legend {width:0;height:0;font-size:0;color:transparent;line-height:0;}
+fieldset { margin:0; padding:0; border:none;}
+
+/* 이미지 초기화 */
+img{vertical-align:middle; border:0;max-width: 100%;}
+
+
+/* calendar */
+.calandar_group { clear: both; }
+input[data-type=date].ui_cal { border:1px solid #cbcbcb;/* height:30px; line-height:30px;*/ color:#666; vertical-align:top; }
+input[data-type=date].ui_cal + .ui-datepicker-trigger {margin-left:5px;vertical-align:top;display:inline-block;margin-top:4px;cursor:pointer;}
+.tt { line-height:36px; font-size:20px; padding:0 5px;}
+
+
+/* 버튼 초기화 */
+button{outline:0; border:0; cursor:pointer; /*vertical-align:middle;*/ background: none;}
+/* button > span{visibility:hidden; font-size:0;} */
+
+.tc {text-align: center;}
+.tl {text-align: left !important;}
+.tr {text-align: right;}
+
+/*공백*/
+.gap5 {height:5px;clear:both;overflow:hidden;}
+.gap10 {height:10px;clear:both;overflow:hidden;}
+.gap15 {height:15px;clear:both;overflow:hidden;}
+.gap20 {height:20px;clear:both;overflow:hidden;}
+.gap25 {height:25px;clear:both;overflow:hidden;}
+.gap30 {height:30px;clear:both;overflow:hidden;}
+.gap35 {height:35px;clear:both;overflow:hidden;}
+.gap40 {height:40px;clear:both;overflow:hidden;}
+.gap50 {height:50px;clear:both;overflow:hidden;}
+.gap60 {height:60px;clear:both;overflow:hidden;}
+.gap70 {height:70px;clear:both;overflow:hidden;}
+.gap105 {height:105px;clear:both;overflow:hidden;}
+
+
+.mgl_5 {margin-left:5px;}
+.mgl_10 {margin-left:10px;}
+.mgt_20 {margin-top:20px;}
+
+
+/*마진*/
+.no_mgt {margin-top:0px !important;}
+.no_mgf {margin-bottom:0px !important;}
+.mg5f {margin-bottom:5px;}
+.mg10f {margin-bottom:10px !important;}
+.mg15f {margin-bottom:15px;}
+.mg20f {margin-bottom:20px;}
+.mg25f {margin-bottom:25px;}
+.mg30f {margin-bottom:30px;}
+.mg40f {margin-bottom:40px;}
+.mg50f {margin-bottom:50px;}
+.mg5t {margin-top:5px;}
+.mg10t {margin-top:10px !important;}
+.mg15t {margin-top:15px !important;}
+.mg20t {margin-top:20px;}
+.mg25t {margin-top:25px;}
+.mg30t {margin-top:30px;}
+.mg35t {margin-top:35px;}
+.mg40t {margin-top:40px;}
+.mg5 {margin-left:5px;}
+.mg10 {margin-left:10px;}
+.mg15 {margin-left:15px;}
+.mg20 {margin-left:20px;}
+.mg25 {margin-left:25px;}
+.mg30 {margin-left:30px;}
+.mg50 {margin-left:50px;}
+.mg40 {margin-left:40px;}
+.mg60 {margin-left:60px;}
+.mg5r {margin-right:5px;}
+.mg10r {margin-right:10px !important;}
+.mg15r {margin-right:15px !important;}
+.mg20r {margin-right:20px;}
+.mg25r {margin-right:25px;}
+.mg30r {margin-right:30px;}
+.mg5a {margin:5px;}
+.mg10a {margin:10px;}
+.mg15a {margin:15px;}
+.mg20a {margin:20px;}
+.mg25a {margin:25px;}
+.mg30a {margin:30px;}
+
+
+
+/* 패딩 5,10단위만 지정함*/
+.padno { padding:0 !important;}
+.padtno { padding-top:0 !important;}
+.padfno { padding-bottom:0 !important;}
+.pad0lr {padding-left:0px !important; padding-right:0px !important;}
+.pad5a {padding:5px}
+.pad5tf {padding-top:5px !important; padding-bottom:5px !important;}
+.pad5lr {padding-left:5px;padding-right:5px;}
+.pad5r {padding-right:5px}
+.pad5l {padding-left:5px}
+.pad5t {padding-top:5px !important;}
+.pad5f {padding-bottom:5px !important;}
+.pad10a {padding:10px}
+.pad10tf {padding-top:10px !important; padding-bottom:10px !important;}
+.pad10lr {padding-left:10px !important; padding-right:10px !important;}
+.pad10r {padding-right:10px}
+.pad10l {padding-left:10px}
+.pad10t {padding-top:10px !important;}
+.pad10f {padding-bottom:10px !important;}
+.pad15a {padding:15px}
+.pad15tf {padding-top:15px;padding-bottom:15px}
+.pad15lr {padding-left:15px !important;padding-right:15px !important;}
+.pad15r {padding-right:15px}
+.pad15l {padding-left:15px}
+.pad15t {padding-top:15px !important;}
+.pad15f {padding-bottom:15px !important}
+.pad20a {padding:20px}
+.pad20tf {padding-top:20px;padding-bottom:20px}
+.pad20lr {padding-left:20px;padding-right:20px;}
+.pad20r {padding-right:20px}
+.pad20l {padding-left:20px !important;}
+.pad20t {padding-top:20px}
+.pad20f {padding-bottom:20px}
+.pad25a {padding:25px}
+.pad25tf {padding-top:25px;padding-bottom:25px}
+.pad25lr {padding-left:25px;padding-right:25px;}
+.pad25r {padding-right:25px}
+.pad25l {padding-left:25px}
+.pad25t {padding-top:25px}
+.pad25f {padding-bottom:25px}
+.pad30a {padding:30px}
+.pad30tf {padding-top:30px;padding-bottom:30px}
+.pad30lr {padding-left:30px !important;padding-right:30px !important;}
+.pad30r {padding-right:30px}
+.pad30l {padding-left:30px}
+.pad30t {padding-top:30px}
+.pad30f {padding-bottom:30px}
+.pad40a {padding:40px}
+.pad40tf {padding-top:40px;padding-bottom:40px}
+.pad40lr {padding-left:40px !important;padding-right:40px !important;}
+.pad40r {padding-right:40px}
+.pad40l {padding-left:40px}
+.pad40t {padding-top:40px}
+.pad40f {padding-bottom:40px}
+.pad45r {padding-right:45px !important;}
+.pad50a {padding:50px}
+.pad50tf {padding-top:50px;padding-bottom:50px}
+.pad50lr {padding-left:50px !important;padding-right:50px !important;}
+.pad50r {padding-right:50px !important;}
+.pad50l {padding-left:50px}
+.pad50t {padding-top:50px}
+.pad50f {padding-bottom:50px !important;}
+.pad60a {padding:60px}
+.pad60tf {padding-top:60px;padding-bottom:60px}
+.pad60lr {padding-left:60px;padding-right:60px;}
+.pad60r {padding-right:60px !important;}
+.pad60l {padding-left:60px}
+.pad60t {padding-top:60px}
+.pad60f {padding-bottom:60px}
+
+
+
+/*가로 크기*/
+.w50 {width:50px !important;}
+.w60 {width:60px !important;}
+.w80 {width:80px !important;}
+.w100 {width:100px !important;}
+.w110 {width:110px !important;}
+.w120 {width:120px !important;}
+.w130 {width:130px !important;}
+.w140 {width:140px !important;}
+.w150 {width:150px !important;}
+.w180 {width:180px !important;}
+.w160 {width:160px !important;}
+.w200 {width:200px !important;}
+.w230 {width:230px !important;}
+.w250 {width:250px !important;}
+.w300 {width:300px !important;}
+.w10p {width:10%;}
+.w15p {width:15%;}
+.w18p {width:18%;}
+.w20p {width:20%;}
+.w25p {width:25%;}
+.w30p {width:30%;}
+.w31p {width:31% !important;}
+.w33p {width:33% !important;}
+.w35p {width:35% !important;}
+.w40p {width:40% !important;}
+.w45p {width:45% !important;}
+.w48p {width:48% !important;}
+.w50p {width:50% !important;}
+.w55p {width:55% !important;}
+.w60p {width:60% !important;}
+.w75p {width:75% !important;}
+.w80p {width:80% !important;}
+.w82p {width:82% !important;}
+.w85p {width:85% !important;}
+.w95p {width:95% !important;}
+.w90p {width:90% !important;}
+.w100p {width:100% !important;}
+
+
+
+/* 포지션 */
+.posi-fixed { position:fixed !important;} /* 0925 추가 */
+.posi-relative { position:relative !important;}
+.posi-absolute { position:absolute !important;}
+.posi-absolbtm { position:absolute; left:0; bottom:0; }
+
+
+/*숨기기*/
+.hide{ display:none !important; }

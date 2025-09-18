@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, height = device-height, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <title>스페이스원</title>
+    <script src="../../jquary/jquery-3.7.0.js"></script>
+    <script src="../../jquary/jquery.jscssfile.min.js"></script>
+    <!-- jQuery Modal -->
+    <script src="../../jquary/chart_v3.9.1.min.js"></script>
+    <link href="../../jquary/plugin/jquery.modal.min.css" rel="stylesheet">
+    <script src="../../jquary/plugin/jquery.modal.min.js"></script>
+    <!--  Python Qt WebView 사용시 qwebchannel.js" -->
+    <script src="../../maru/qwebchannel.js"></script>
+    <script src="../../maru/WebApp.func.min.js"></script>
+    <!--    <script src="../../maru/WebApp.min.js"></script>-->
+    <script src="../../maru/WebApp.js"></script>
+    <script src="layout.js"></script>
+    <script src="../../maru/MaruScript.js"></script>
+    <script src="../../maru/WebApp.site.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="../css/style.css" />
+
+</head>
+
+<body>
+
+    <div data-role="page" id="page-start" data-page="start" class="wrap pad0lr">
+        <!-- S:header -->
+        <div data-role="header" class="header header-back">
+            <div class="head-time">
+                <span class="SYS-TXT-TIMER_DAY">2025.04.25.</span>
+                <span class="SYS-TXT-TIMER_CLOCK htime-day">11시 25분</span>
+            </div>
+            <div class="title">Python webview <span>MARU(마루)</span></div>
+            <div class="head-logo">
+                <span class="none">(주)리모텍</span>
+                <div class="head-button">
+                    <span class="SYS-BTN-DATA cyan-btn"><a>데이터 추가</a></span>
+                </div>
+            </div>
+<!--            <div class="head-logo">-->
+<!--                <span>(주)리모텍</span>-->
+<!--                <span class="hlogo-one SYS-BTN-DATA"><a>TEST BTN</a></span>-->
+<!--            </div>-->
+        </div>
+        <!-- E:header -->
+
+        <div data-role="body" id="start-body" class="main-body">
+            <!-- S:control-content -->
+            <div data-role="content" id="start_one" data-loc="start" class="control-content">
+                <!-- <div class="control-content">-->
+                <!-- left -->
+                <div class="control-left">
+                    <div class="H50p">
+                        <div class="control-title">AC Input Power</div>
+                        <div class="tbl-wrap control-power">
+                            <table class="tbl-C">
+                                <colgroup> <col style="width: 55%;"> <col style="width: 45%;"> </colgroup>
+                                <tbody>
+                                    <tr>
+                                        <th>L1 Volt</th>
+                                        <td class="SYS-TXT-ACL1V txt-cyan">440<span>V</span></td>
+                                    </tr>
+                                    <tr>
+                                        <th>L2 Volt</th>
+                                        <td class="SYS-TXT-ACL2V txt-cyan">440<span>V</span></td>
+                                    </tr>
+                                    <tr>
+                                        <th>L3 Volt</th>
+                                        <td class="SYS-TXT-ACL3V txt-cyan">440<span>V</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="H50p">
+                        <div class="control-title">Operation Mode</div>
+                        <div class="tbl-wrap">
+                            <table class="tbl-C">
+                                <colgroup> <col style="width: auto;"> <col style="width: auto;"> </colgroup>
+                                <tbody>
+                                    <tr>
+                                        <th><span class="GROUP-MODE_1 SYS-toggle choice">선택</span></th>
+                                        <td>Auto Tension</td>
+                                    </tr>
+                                    <tr>
+                                        <th><span class="GROUP-MODE_2 SYS-toggle dechoice">선택</span></th>
+                                        <td>Manu CW</td>
+                                    </tr>
+                                    <tr>
+                                        <th><span class="GROUP-MODE_3 SYS-toggle dechoice">선택</span></th>
+                                        <td>Manu CCW</td>
+                                    </tr>
+                                    <tr>
+                                        <th><span class="GROUP-MODE_4 SYS-toggle dechoice">선택</span></th>
+                                        <td>Stop Mode</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- cetner -->
+                <div class="control-center control-power">
+                    <div class="H43p">
+                        <div class="control-title">Output Power</div>
+                        <div class="tbl-wrap">
+                            <table class="tbl-C">
+                                <colgroup> <col style="width: 55%;"> <col style="width: 45%;"> </colgroup>
+                                <tbody>
+                                    <tr>
+                                        <th>L1 Current</th>
+                                        <td class="SYS-TXT-ACL1C txt-cyan">123.4<span>A</span></td>
+                                    </tr>
+                                    <tr>
+                                        <th>L2 Current</th>
+                                        <td class="SYS-TXT-ACL2C txt-cyan">123.4<span>A</span></td>
+                                    </tr>
+                                    <tr>
+                                        <th>L3 Current</th>
+                                        <td class="SYS-TXT-ACL3C txt-cyan">123.4<span>A</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="H57p">
+                        <div class="width-box">
+                            <dl class="pink-box">
+                                <dt>Event :</dt>
+                                <dd class="SYS-TXT-EVENT">---</dd>
+                            </dl>
+                            <dl class="cyan-box">
+                                <dt>Temp :</dt>
+                                <dd class="SYS-TXT-TEMPERATURE">35 <span>℃</span></dd>
+                            </dl>
+                        </div>
+
+                        <div class="tbl-wrap control-powerTbl">
+                            <table class="tbl-C">
+                                <colgroup> <col style="width: 60%;"> <col style="width: 40%;"> </colgroup>
+                                <tbody>
+                                    <tr>
+                                        <th class="tl pad20l">Wind Load</th>
+                                        <td class="SYS-TXT-TORQUE txt-cyan">200<span>ton</span></td>
+                                    </tr>
+                                    <!--<tr>
+                                        <th class="tl pad20l">Frequency</th>
+                                        <td class="SYS-TXT-FREQUENCY txt-cyan">35.6<span>Hz</span></td>
+                                    </tr>-->
+                                    <tr>
+                                        <th class="tl pad20l">Winding Speed</th>
+                                        <td class="SYS-TXT-RPM txt-cyan">1234<span>m/min</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- right -->
+                <div class="control-right">
+                    <div class="H43p">
+                        <div class="control-rotate"><span class="bold">Rotate : </span> <span class="SYS-TXT-ROTATE txt-cyan">1234</span>RPM [<span class="SYS-TXT-FRQ">35.4</span>Hz]</div>
+                        <div class="cyan-box">
+                            <div class="control-arrow">
+                                <div class="ccwMOTOR">
+                                    <img src="../img/arrow-left.png" alt="" />
+                                    <span>CCW</span>
+                                </div>
+                                <div>
+                                    <img src="../img/arrow-center.png" alt="" />
+                                </div>
+                                <div class="cwMOTOR">
+                                    <img src="../img/arrow-right.png" alt="" />
+                                    <span>CW</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="H57p">
+                        <div class="control-title">Real-time Monitoring</div>
+                        <div class="control-chart">
+                            <div>
+                                <canvas id="remoChart" style="height:40vh; width:50vw"></canvas>
+                            </div>
+                        </div>
+                        <div class="control-rotate gap105"><span class="bold">Interval Time : </span> <span class="SYS-TXT-INTERVAL txt-cyan">300</span>Sec</div>
+                    </div>
+                </div>
+            </div>
+            <!-- E:control-content -->
+        </div>
+
+    </div>
+    <div id="SYS-CMODAL-CONFIRM" class="modal">
+        <div class="inner">
+            <h2 class="SYS-TXT-WARNING">----<br>********</h2>
+            <div class="btn_wrap">
+                <a class="SYS-MODAL-BTN-CANCEL btn btn-secondary">취소</a>
+                <a class="SYS-MODAL-BTN-CONFIRM btn btn-primary">파일생성</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>QWebChannel Example</title>
+    <script src="./assets/maru/qwebchannel.js"></script>
+</head>
+<body>
+    <h1>Python QWebChannel WebView (pyPWA)</h1>
+    <button onclick="callPython()">파이썬 함수 호출</button>
+    <button onclick="callMainWindow()">파이썬 Main 함수 호출</button>
+    <script>
+        var pyqt_obj;
+        var main_obj;
+        function setupChannel() {
+            if (typeof QWebChannel !== 'undefined') {
+                new QWebChannel(qt.webChannelTransport, function(channel) {
+                    //pyqt_obj = channel.objects.pyHandler;
+                    //main_obj = channel.objects.pyApp;
+                    for (const objName in channel.objects) {
+                        if (channel.objects.hasOwnProperty(objName)) {
+                            window[objName] = channel.objects[objName];
+                        }
+                    }
+                });
+            }
+        }
+        function callPython() {
+            //if (pyqt_obj) {
+            //    pyqt_obj.callFromHtml('Hello from JavaScript!');
+            //}
+            if (window['Maru_Start']) {
+                window['Maru_Start'].callFromHtml('Hello from JavaScript!');
+            }
+        }
+
+        function setPythonFunction(message) {
+            // 이 함수는 파이썬에서 호출될 때 실행
+            console.log("파이썬에서 JavaScript 함수를 호출했습니다:", message);
+            // 만약 파이썬으로 다시 메시지를 보내고 싶다면, QWebChannel과 같은 다른 방법을 사용해야 함
+        }
+
+        function callMainWindow(message) {
+            // 이 함수는 파이썬에서 호출될 때 실행
+            //console.log("파이썬에서 JavaScript 함수를 호출했습니다:", message);
+            // 만약 파이썬으로 다시 메시지를 보내고 싶다면, QWebChannel과 같은 다른 방법을 사용해야 함
+            if (window['Maru_App']) {
+                window['Maru_App'].callPyApp('callMainWindow');
+            }
+        }
+
+        // 페이지 로드 시 채널 설정
+        //window.onload = setupChannel;
+        window.addEventListener('load', function () {
+            var allElements = document.getElementsByTagName('*');
+            Array.prototype.forEach.call(allElements, function (el) {
+                var includePath = el.dataset.includePath;
+                if (includePath) {
+                    var xhttp = new XMLHttpRequest();
+                    xhttp.onreadystatechange = function () {
+                        if (this.readyState == 4 && this.status == 200) {
+                            el.outerHTML = this.responseText;
+                        }
+                    };
+                    xhttp.open('GET', includePath, true);
+                    xhttp.send();
+                }
+            });
+            setupChannel();
+        });
+    </script>
+</body>
+</html>

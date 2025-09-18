@@ -6,6 +6,7 @@ var EV_END = isTouchDevice ? 'touchend' : 'mouseup';
 var MY_PATH = window.location.pathname.split('form/').shift(); //assets
 
 var MODAL_ID = null;
+var MEM_INPUT = [];
 
 var getMatches = function(string, regex, index) {
     index || (index = 1); // default to the first capturing group
@@ -66,7 +67,7 @@ var ConfirmModal = {
     */
     confirmBox: function (view, kinds, message) {
         //if (kinds.toUpperCase().indexOf('EDITMENU') >= 0) {
-        //    console.log('MenuModal menuBox : ', view, kinds, message);
+        //    console.log('MenuModal modalBox : ', view, kinds, message);
         //    return;
         //}
         //console.log('ConfirmModal confirmBox : ', view, kinds, message);
@@ -101,41 +102,434 @@ var ConfirmModal = {
     Btn: {
         'CONFIRM': function (e) {
             (e.preventDefault) ? e.preventDefault() : e.returnValue = false;
-            //Maru_app.btn_Sound_BEEP();
-
-            //console.log(oPageInfo.page + ' : Close1');
-            //ConfirmModal.confirmBox('hide');
+            //console.log('Maru_' + oPageInfo.page + ' : Close');
+            window['Maru_app'].btn_Sound_Beep();
             if (MODAL_ID != null) {
                 var dialog = $('#SYS-' + MODAL_ID);
                 var dialog_INNER = dialog.find('.inner'); // buttons bloc
                 dialog_INNER.find('[class*="SYS-MODAL-BTN-"]').addClass('hide').unbind('click');
                 dialog_INNER.find('.SYS-TXT-WARNING').html('----<br>********');
-                if (dialog_INNER.find('.SYS-MODAL-BTN-CANCEL').length) {
-                    //console.log('Maru_' + oPageInfo.page + ' : 존재 => SYS-MODAL-BTN-CANCEL');
-                    window['Maru_' + oPageInfo.page].btn_Confirm();
+                //if (dialog_INNER.find('.SYS-MODAL-BTN-CANCEL').length) {
+                //    //console.log('Maru_' + oPageInfo.page + ' : 존재 => SYS-MODAL-BTN-CANCEL');
+                //    window['Maru_' + oPageInfo.page].btn_Confirm();
+                //}
+                if (dialog_INNER.find('.SYS-MODAL-BTN-CONFIRM').length) {
+                    window['Maru_' + oPageInfo.page].btn_Dlg_Confirm();
                 }
                 sleep(20);
                 $.modal.close();
                 MODAL_ID = null;
             }
-
-            //if ($(this).attr('data-name') == 'add') {
-            //    window['Maru_' + oPageInfo.page].btn_ModalCoffeeAppend(sData);
-            //} else if ($(this).attr('data-name') == 'edit') {
-            //    window['Maru_' + oPageInfo.page].btn_ModalCoffeeEdit(parseInt(MEM_INPUT['2']), sData);
-            //}
         },
         'CANCEL': function (e) {
             (e.preventDefault) ? e.preventDefault() : e.returnValue = false;
-            //Maru_app.btn_Sound_BEEP();
+            window['Maru_app'].btn_Sound_Beep();
             if (MODAL_ID != null) {
                 var dialog = $('#SYS-' + MODAL_ID);
                 var dialog_INNER = dialog.find('.inner'); // buttons bloc
                 dialog_INNER.find('[class*="SYS-MODAL-BTN-"]').addClass('hide').unbind('click');
                 dialog_INNER.find('.SYS-TXT-WARNING').html('----< br >********');
+                if (dialog_INNER.find('.SYS-MODAL-BTN-CANCEL').length) {
+                    window['Maru_' + oPageInfo.page].btn_Dlg_Cancel();
+                }
+                sleep(20);
                 $.modal.close();
                 MODAL_ID = null;
             }
+        }
+    }
+}
+
+var MenuModal = {
+    /**
+    * Modal박스 출력/숨기기
+    *
+    * @example
+        Modal.dialog('show', kinds, '좋겠다!!!!');
+    * 'hide' : 숨기기, 'show' : 보이기
+    */
+    modalBox: function (view, kinds, img_path, message) {
+        //if (kinds.toUpperCase().indexOf('EDITMENU') >= 0) {
+        //console.log('MenuModal modalBox : ', view, kinds, img_path, message);
+        //    return;
+        //}
+        //console.log('MenuModal modalBox : ', view, kinds, message);
+        if ($.modal.isActive() || (view != 'hide' && view != 'show') || kinds.length == 0) {
+            return;
+        }
+        var dialog = $('#SYS-' + MODAL_ID);
+        var dialog_INNER = dialog.find('.inner'); // buttons bloc
+
+        if (view == 'hide') {
+            //console.log('KKKKKS 0: ' + 'SYS-' + MODAL_ID);
+            dialog_INNER.find('[class*="SYS-MODAL-BTN-"]').addClass('hide').unbind('click');
+            dialog_INNER.find('.SYS-MODAL-MENU_IMG').attr('src', '');
+            dialog_INNER.find('.subRedTxt').text('중앙의 버튼을 눌러 이미지를 선택하세요.');
+            dialog_INNER.find('.SYS-TXT-CHECK').prop('checked', false);
+            dialog_INNER.find('.SYS-TXT-MODAL_NANE').val('');
+            dialog_INNER.find('.SYS-TXT-MODAL_VALUE').val('0');
+            dialog_INNER.find('.SYS-TXT-MODAL_POINT').val('0');
+            dialog_INNER.find('.SYS-TXT-MODAL_USAGE').val('0');
+            dialog.find('.close-modal').addClass('hide').unbind('click');
+            $.modal.close();
+            MODAL_ID = null;
+            MEM_INPUT['1'] = MEM_INPUT['2'] = MEM_INPUT['0'] = MEM_INPUT['3'] = '';
+            return;
+        }
+
+        MODAL_ID = 'MODAL-' + kinds.toUpperCase();
+        //if (view == 'show')
+        dialog = $('#SYS-' + MODAL_ID); // dialog 박스
+        //console.log('Modal Box : ' + view + ', ' + '#SYS-' + MODAL_ID);
+        dialog_INNER = dialog.find('.inner'); // buttons block
+
+        if (message != null && message != '' && message.length > 0) {
+            MEM_INPUT['0'] = img_path;
+            if (MODAL_ID.indexOf('EDITMENU') >= 0) {
+                var dataMENU = message.split(',');
+                MEM_INPUT['1'] = dataMENU[1];
+                MEM_INPUT['2'] = dataMENU[0];
+                MEM_INPUT['3'] = dataMENU[4];
+                dialog_INNER.find('.SYS-MODAL-MENU_IMG').attr('src', img_path + '/' + dataMENU[4]);
+                dialog_INNER.find('.SYS-TXT-MODAL_NAME').val(dataMENU[1]);
+                dialog_INNER.find('.SYS-TXT-MODAL_VALUE').val(dataMENU[2]);
+                dialog_INNER.find('.SYS-TXT-MODAL_POINT').val(dataMENU[6]);
+                dialog_INNER.find('.SYS-TXT-CHECK').prop('checked', (dataMENU[3] == '0') ? false:true);
+                dialog_INNER.find('.SYS-TXT-MODAL_USAGE').val(dataMENU[7]);
+            }
+//            else if (MODAL_ID.indexOf('ADDMENU') >= 0) {
+//            }
+        }
+
+        // event 할당
+        dialog_INNER.find('.SYS-MODAL-BTN-IMG_UPLOAD').unbind('click').bind('click', MenuModal.Btn['IUPLOAD']).removeClass('hide');
+        dialog_INNER.find('.SYS-MODAL-BTN-MENU_SET').unbind('click').bind('click', MenuModal.Btn['MENU_SET']).removeClass('hide');
+
+        dialog.modal('show');
+        dialog.find('.close-modal').unbind('click').bind('click', MenuModal.Btn['CLOSE']).removeClass('hide');
+    },
+    Btn: {
+        'IUPLOAD': function (e) {
+            (e.preventDefault) ? e.preventDefault() : e.returnValue = false;
+            btnAct.call(this);
+            if(window['Maru_main'].btn_showFileChooser()){
+                window['Maru_app'].btn_Sound_Beep();
+                //console.log(oPageInfo.page + ' : showFileChooser');
+                var selectImg = window['Maru_main'].btn_pathImageFile();
+                while(selectImg == null){
+                    //console.log(oPageInfo.page + ' : btn_pathImageFile now wait read path');
+                    selectImg = window['Maru_main'].btn_pathImageFile();
+                    sleep(100);
+                }
+                //console.log(oPageInfo.page + ' : btn_pathImageFile now wait read path' + selectImg);
+                var dialog_INNER = $('#SYS-' + MODAL_ID).find('.inner');
+                if(selectImg.length > 4 ){
+                    window['Maru_app'].btn_Sound_Beep();
+                    var imgPath = selectImg.split('/');
+                    if(window['Maru_main'].btn_existsImgFile(imgPath[imgPath.length - 1])){
+                        if ($(this).attr('data-name') == 'add') {
+                            window['Maru_app'].btn_MsgBoxShow('이미 같은 이름의 이미지가 등록되어 있습니다. \n\n다른 이름의 그림파일을 선택해 주세요', 0);
+                            return;
+                        }else if($(this).attr('data-name') == 'edit'){
+                            window['Maru_app'].btn_MsgBoxShow('이미 같은 이름의 이미지가 등록되어 있습니다.\n\n' +
+                                '선택하신 ' + imgPath[imgPath.length - 1] + '으로 메뉴 그림을 교체합니다.', 0);
+                            dialog_INNER.find('.subRedTxt').text('그림파일, ' + imgPath[imgPath.length - 1] + '으로 메뉴 그림을 교체합니다.');
+                        }
+                    }else{
+                        if ($(this).attr('data-name') == 'add') {
+                            dialog_INNER.find('.subRedTxt').text('그림파일, ' + imgPath[imgPath.length - 1] + '가 선택되었습니다.');
+                        } else if ($(this).attr('data-name') == 'edit') {
+                            dialog_INNER.find('.subRedTxt').text('이미지가 ' + imgPath[imgPath.length - 1] + '로 교체 됩니다.');
+                        }
+                    }
+                    dialog_INNER.find('.SYS-MODAL-MENU_IMG').attr('src', selectImg);
+
+                }else{
+                    dialog_INNER.find('.subRedTxt').text('중앙의 버튼을 눌러 이미지를 선택하세요.');
+                    dialog_INNER.find('.SYS-MODAL-MENU_IMG').attr('src', '');
+                }
+            }
+            //window['Maru_' + oPageInfo.page].btn_LOAD_IMG();
+        },
+        'MENU_SET': function (e) {
+            (e.preventDefault) ? e.preventDefault() : e.returnValue = false;
+            btnAct.call(this);
+            window['Maru_app'].btn_Sound_Beep();
+            var dialog_INNER = $('#SYS-' + MODAL_ID).find('.inner'); // buttons block
+            if (dialog_INNER.find('.subRedTxt').text().indexOf('그림파일,') < 0) {
+                window['Maru_app'].btn_MsgBoxShow('이 메뉴의 Image를 선택해 주세요', 3000);
+                return;
+            }
+            var sData = dialog_INNER.find('.SYS-TXT-MODAL_NAME').val();
+            if (sData <= 0 ) {
+                window['Maru_app'].btn_MsgBoxShow('제품명을 설정해 주세요', 3000);
+                return;
+            }
+            nData1 = parseInt(dialog_INNER.find('.SYS-TXT-MODAL_VALUE').val().replace('/[^0-9]/g', ''));
+            if (nData1 <= 0) {
+                window['Maru_app'].btn_MsgBoxShow('가격을 설정해 주세요', 3000);
+                return;
+            }
+            var imgPath = dialog_INNER.find('.SYS-MODAL-MENU_IMG').attr('src');
+            var imgName = imgPath.split('/');
+            sData += ',' + nData1;                                                              //2: 가격
+            sData += ',' + (dialog_INNER.find('.SYS-TXT-CHECK').is(':checked') ? '1' : '0')     //3: 썃 추가가 있는지? 없는지?
+            sData += ',' + imgName[imgName.length - 1];                                         //4: 그림 파일명
+            sData += ',1000';                                                                   //5: stock(재고) 개수
+            nData1 = parseInt(dialog_INNER.find('.SYS-TXT-MODAL_POINT').val().replace('/[^0-9]/g', ''));
+            sData += ',' + ((nData1 < 0)? 0:nData1);                                            //6: POINT
+            nData1 = parseInt(dialog_INNER.find('.SYS-TXT-MODAL_USAGE').val().replace('/[^0-9]/g', ''));
+            sData += ',' + ((nData1 < 0)? 0:nData1);                                            //7: 1회 사용할 양
+            ////0:id, 1:name, 2:price, 3:add, 4:path, 5:stock  6:point 7:_usage 8:kinds, 9:using
+            //console.log(oPageInfo.page + ' MENU_ADD / ' + sData);
+            dialog_INNER.find('.close-modal').addClass('hide').unbind('click');
+            dialog_INNER.find('.subRedTxt').text('중앙의 버튼을 눌러 이미지를 선택하세요.');
+            dialog_INNER.find('[class*="SYS-MODAL-BTN-"]').addClass('hide').unbind('click');
+            dialog_INNER.find('.SYS-MODAL-MENU_IMG').attr('src', '');
+            dialog_INNER.find('.SYS-TXT-MODAL_NAME').val('');
+            dialog_INNER.find('.SYS-TXT-CHECK').prop('checked', false);
+            dialog_INNER.find('.SYS-TXT-MODAL_VALUE').val('0');
+            dialog_INNER.find('.SYS-TXT-MODAL_POINT').val('0');
+            dialog_INNER.find('.SYS-TXT-MODAL_USAGE').val('0');
+            if (MODAL_ID != null) {
+                $.modal.close();
+            }
+            //console.log(oPageInfo.page + ' : ' + $(this).attr('data-name') + ' , ' + MEM_INPUT['2']);
+
+            MODAL_ID = null;
+            if ($(this).attr('data-name') == 'add') {
+                if(window['Maru_app'].btn_copyFile(imgPath)){
+                    window['Maru_' + oPageInfo.page].btn_ModalManageAppend(sData);
+                }
+            } else if ($(this).attr('data-name') == 'edit') {
+                if(window['Maru_app'].btn_copyFile(window['Maru_main'].btn_pathImageFile())
+                        && window['Maru_app'].btn_deleteMenuImage(MEM_INPUT['3'])){
+                    window['Maru_' + oPageInfo.page].btn_ModalManageEdit(parseInt(MEM_INPUT['2']), sData);
+                }
+            }
+            window['Maru_' + oPageInfo.page].btn_closeDialog();
+            MEM_INPUT['0'] = MEM_INPUT['1'] = MEM_INPUT['2'] = MEM_INPUT['3'] = '';
+        },
+        'MENU_SET1': function (e) {
+            (e.preventDefault) ? e.preventDefault() : e.returnValue = false;
+            btnAct.call(this);
+            window['Maru_app'].btn_Sound_Beep();
+            var dialog_INNER = $('#SYS-' + MODAL_ID).find('.inner'); // buttons block
+            if(dialog_INNER.find('.subRedTxt').val().indexOf('그림파일,') < 0){
+                console.log(oPageInfo.page + ' : error retun');
+                return;
+            }
+            var imgPath = dialog_INNER.find('.SYS-MODAL-MENU_IMG').attr('src').split('/');
+            var sData;
+            var nData1;
+            if (imgPath.length <= 1) {
+                window['Maru_app'].btn_MsgBoxShow('이 메뉴의 Image를 불러주세요', 2000);
+                return;
+            }
+            console.log(oPageInfo.page + ' : ' + $(this).attr('data-name') + ' , ' + MEM_INPUT['2']);
+            var filename = imgPath[imgPath.length - 1];
+            if ($(this).attr('data-name') == 'add' && window['Maru_main'].btn_existsFile(filename)) {
+                window['Maru_app'].btn_MsgBoxShow('이미 같은 제품이 등록되어 있습니다. \n다른 제품을 선택해 주세요', 2000);
+                return;
+            }
+                                                                                                //0: id 번호 / 자동 생성이기 때문에 지정안함
+            sData = dialog_INNER.find('.SYS-TXT-MODAL_NAME').val();                             //1: 메뉴 이름
+            nData1 = parseInt(dialog_INNER.find('.SYS-TXT-MODAL_VALUE').val().replace('/[^0-9]/g', ''));
+            if (nData1 <= 0) {
+                window['Maru_app'].btn_MsgBoxShow('가격을 설정해 주세요', 2000);
+                return;
+            }
+            sData += ',' + nData1;                                                              //2: 가격
+            sData += ',' + (dialog_INNER.find('.SYS-TXT-CHECK').is(':checked') ? '1' : '0')     //3: 썃 추가가 있는지? 없는지?
+            sData += ',' + filename;                                                            //4: 그림 파일명
+            sData += ',1000';                                                                   //5: stock(재고) 개수
+            nData1 = parseInt(dialog_INNER.find('.SYS-TXT-MODAL_POINT').val().replace('/[^0-9]/g', ''));
+            sData += ',' + ((nData1 <= 0)? 0:nData1);                                           //6: POINT
+            nData1 = parseInt(dialog_INNER.find('.SYS-TXT-MODAL_USAGE').val().replace('/[^0-9]/g', ''));
+            sData += ',' + ((nData1 <= 0)? 0:nData1);                                           //7: 1회 사용할 양
+            ////0:id, 1:name, 2:price, 3:add, 4:path, 5:stock  6:point 7:_usage 8:kinds, 9:using
+            console.log(oPageInfo.page + ' MENU_ADD / ' + sData);
+
+            dialog_INNER.find('.subRedTxt').text('중앙의 버튼을 눌러 이미지를 선택하세요.');
+            dialog_INNER.find('[class*="SYS-MODAL-BTN-"]').addClass('hide').unbind('click');
+            dialog_INNER.find('.SYS-MODAL-MENU_IMG').attr('src', '');
+            dialog_INNER.find('.SYS-TXT-MODAL_NAME').val('');
+            dialog_INNER.find('.SYS-TXT-CHECK').prop('checked', false);
+            dialog_INNER.find('.SYS-TXT-MODAL_VALUE').val('0');
+            dialog_INNER.find('.SYS-TXT-MODAL_POINT').val('0');
+            dialog_INNER.find('.SYS-TXT-MODAL_USAGE').val('0');
+            if (MODAL_ID != null) {
+                $.modal.close();
+            }
+            //console.log(oPageInfo.page + ' : ' + $(this).attr('data-name') + ' , ' + MEM_INPUT['2']);
+
+            MODAL_ID = null;
+            if ($(this).attr('data-name') == 'add') {
+                window['Maru_' + oPageInfo.page].btn_ModalManageAppend(sData);
+            } else if ($(this).attr('data-name') == 'edit') {
+                window['Maru_' + oPageInfo.page].btn_ModalManageEdit(parseInt(MEM_INPUT['2']), sData);
+            }
+            sleep(20);
+            MEM_INPUT['0'] = MEM_INPUT['1'] = MEM_INPUT['2'] = MEM_INPUT['3'] = '';
+        },
+        'CLOSE': function (e) {
+            (e.preventDefault) ? e.preventDefault() : e.returnValue = false;
+            //console.log(oPageInfo.page + ': CLOSE');
+            window['Maru_app'].btn_Sound_Beep();
+            var dialog_INNER = $('#SYS-' + MODAL_ID).find('.inner'); // buttons block
+            dialog_INNER.find('.close-modal').addClass('hide').unbind('click');
+            dialog_INNER.find('.subRedTxt').text('중앙의 버튼을 눌러 이미지를 선택하세요.');
+            dialog_INNER.find('[class*="SYS-MODAL-BTN-"]').addClass('hide').unbind('click');
+            dialog_INNER.find('.SYS-MODAL-MENU_IMG').attr('src', '');
+            dialog_INNER.find('.SYS-TXT-MODAL_NAME').val('');
+            dialog_INNER.find('.SYS-TXT-CHECK').prop('checked', false);
+            dialog_INNER.find('.SYS-TXT-MODAL_VALUE').val('0');
+            dialog_INNER.find('.SYS-TXT-MODAL_POINT').val('0');
+            dialog_INNER.find('.SYS-TXT-MODAL_USAGE').val('0');
+            window['Maru_' + oPageInfo.page].btn_closeDialog();
+            MODAL_ID = null;
+            MEM_INPUT['0'] = MEM_INPUT['1'] = MEM_INPUT['2'] = MEM_INPUT['3'] = '';
+        }
+    }
+}
+
+var SpecialModal = {
+    /**
+    * Modal박스 출력/숨기기
+    *
+    * @example
+        Modal.dialog('show', kinds, '좋겠다!!!!');
+    * 'hide' : 숨기기, 'show' : 보이기
+    */
+    modalBox: function (view, kinds) {
+        //console.log('MenuModal modalBox : ', view, kinds);
+        if ($.modal.isActive() || (view != 'hide' && view != 'show') || kinds.length == 0) {
+            return;
+        }
+        if (view == 'hide') {
+            //console.log('KKKKKS 0: ' + 'SYS-' + MODAL_ID);
+            var dialog = $('#SYS-' + MODAL_ID);
+            var dialog_INNER = dialog.find('.inner'); // buttons bloc
+            //dialog_INNER.find('[class*="key"]').addClass('hide').unbind('click');
+            dialog_INNER.find('[class*="key"]').unbind('click');
+            dialog_INNER.find('.SYS-MODAL-BOX-TXT').val('0');
+            //
+            //
+            //
+            dialog.find('.close-modal').addClass('hide').unbind('click');
+            $.modal.close();
+            MODAL_ID = null;
+            return;
+        }
+
+        MODAL_ID = 'MODAL-' + kinds.toUpperCase();
+        //if (view == 'show')
+        var dialog = $('#SYS-' + MODAL_ID); // dialog 박스
+        //console.log('Modal Box : ' + view + ', ' + '#SYS-' + MODAL_ID);
+        var dialog_INNER = dialog.find('.inner');
+        dialog_INNER.find('.SYS-MODAL-BOX-TXT').val('0');
+
+        dialog_INNER.find('.key').unbind('click').bind('click', SpecialModal.Btn['NUM']).removeClass('hide');
+        dialog_INNER.find('.key-clear').unbind('click').bind('click', SpecialModal.Btn['CLEAR']).removeClass('hide');
+        dialog_INNER.find('.key-back').unbind('click').bind('click', SpecialModal.Btn['BACK']).removeClass('hide');
+        dialog_INNER.find('.cancel').unbind('click').bind('click', SpecialModal.Btn['CLOSE']).removeClass('hide');
+        dialog_INNER.find('.confirm').unbind('click').bind('click', SpecialModal.Btn['CONFIRM']).removeClass('hide');
+
+        dialog.modal('show');
+        dialog.find('.close-modal').unbind('click').bind('click', MenuModal.Btn['CLOSE']).removeClass('hide');
+    },
+    Btn: {
+        'NUM': function (e) {
+            (e.preventDefault) ? e.preventDefault() : e.returnValue = false;
+            btnAct.call(this);
+            //Maru_app.btn_Sound_Beep();
+            window['Maru_app'].btn_Sound_Beep();
+            var dialog = $('#SYS-' + MODAL_ID);
+            var dialog_MSG = dialog.find('.SYS-MODAL-BOX-TXT'); // message
+            var sText = dialog_MSG.val();
+            var sKey = $(this).text();
+            //var no;
+            //console.log(oPageInfo.page + ' / SYS-MODAL-BOX-TXT / Key => :' + sKey + ', ' + sText);
+            if(sText.length == 1 && sText == '0'){
+                sText = sKey;
+            }else{
+                sText = sText.replace(/[^0-9]/g, '');
+//               no = sKey.replace(/[^0-9]/g, '');
+                sText += sKey;
+            }
+
+            var cnt = (sText.length <= 3)? 0: (sText.length - 1) / 3;
+            var sLength = sText.length;
+            for(var i = 1; i <= cnt; i++){
+                sLength -=  3;
+                sText = sText.slice(0, sLength) + ',' + sText.slice(sLength);
+            }
+            dialog_MSG.val(sText);
+
+            //console.log('MEM_INPUT[0] 1 => ' + sText + ', ' + MEM_INPUT['0']);
+        },
+        'CLEAR': function (e) {
+            (e.preventDefault) ? e.preventDefault() : e.returnValue = false;
+            btnAct.call(this);
+            window['Maru_app'].btn_Sound_Beep();
+            var dialog = $('#SYS-' + MODAL_ID);
+            var dialog_MSG = dialog.find('.SYS-MODAL-BOX-TXT'); // message
+            dialog_MSG.val('0');
+            //console.log(oPageInfo.page + ' / SYS-MODAL-BOX-TXT / Key => :'  + sText);
+        },
+        'BACK': function (e) {
+            (e.preventDefault) ? e.preventDefault() : e.returnValue = false;
+            btnAct.call(this);
+            window['Maru_app'].btn_Sound_Beep();
+            var dialog = $('#SYS-' + MODAL_ID);
+            var dialog_MSG = dialog.find('.SYS-MODAL-BOX-TXT'); // message
+            var sText = dialog_MSG.val();
+            //console.log(oPageInfo.page + ' / SYS-MODAL-BOX-TXT / Key => :'  + sText);
+            if(sText.length == 1){
+                dialog_MSG.val('0');
+            }else{
+                sText = sText.replace(/[^0-9]/g, '');
+                sText = sText.substring(0, sText.length-1);
+
+                var cnt = (sText.length <= 3)? 0: (sText.length - 1) / 3;
+                var sLength = sText.length;
+                for(var i = 1; i <= cnt; i++){
+                    sLength -=  3;
+                    sText = sText.slice(0, sLength) + ',' + sText.slice(sLength);
+                }
+                dialog_MSG.val(sText);
+            }
+        },
+        'CONFIRM' : function(e){
+            (e.preventDefault) ? e.preventDefault() : e.returnValue = false;
+            btnAct.call(this);
+            window['Maru_app'].btn_Sound_Beep();
+            //console.log('CONFIRM => ' + 'Maru_' + oPageInfo.page + ", " + oPageInfo.id + ", " + oPageInfo.cont_id + ", SYS-PMODAL-" + MODAL_ID);
+            var dialog = $('#SYS-' + MODAL_ID);
+            var dialog_MSG = dialog.find('.SYS-MODAL-BOX-TXT'); // message
+            var sText = dialog_MSG.val();
+            sText = sText.replace(/[^0-9]/g, '');
+
+            var dialog_INNER = dialog.find('.inner');
+            dialog_INNER.find('[class*="key"]').unbind('click');
+            if (MODAL_ID != null) {
+                $.modal.close();
+            }
+            //console.log(oPageInfo.page + ' : #SYS-MODAL-' + MODAL_ID + ' -> ' + sText);
+            MODAL_ID = null;
+            //sleep(20);
+            window['Maru_' + oPageInfo.page].btn_addSpecialMenu(parseInt(sText));
+        },
+        'CLOSE': function (e) {
+            (e.preventDefault) ? e.preventDefault() : e.returnValue = false;
+            //console.log(oPageInfo.page + ': CLOSE');
+            window['Maru_app'].btn_Sound_Beep();
+            var dialog_INNER = $('#SYS-' + MODAL_ID).find('.inner'); // buttons block
+            dialog_INNER.find('.close-modal').unbind('click');
+            dialog_INNER.find('[class*="key"]').unbind('click');
+            //dialog_INNER.find('.SYS-MODAL-BOX-TXT').;
+            MODAL_ID = null;
+            $.modal.close();
         }
     }
 }
@@ -240,19 +634,7 @@ var btn_handler = function(e){
     {
         if( ! $(this).hasClass('SYS-toggle') )
         {
-            if (!$(this).hasClass('SYS-invert')) {
-                $(this).addClass('deactive').removeClass('active');
-
-                if (resetTimerID) {
-                    clearTimeout(resetTimerID);
-                    resetTimerID = 0;
-                }
-                var thisObj = $(this);
-                setTimeout(function () {
-                    resetTimerID = 0;
-                    thisObj.addClass('active').removeClass('deactive');
-                }, 200);
-            } else {
+            if ($(this).hasClass('SYS-invert')) {
                 $(this).addClass('active').removeClass('deactive');
 
                 if (resetTimerID) {
@@ -263,6 +645,18 @@ var btn_handler = function(e){
                 setTimeout(function () {
                     resetTimerID = 0;
                     thisObj.addClass('deactive').removeClass('active');
+                }, 200);
+            } else {
+                $(this).addClass('deactive').removeClass('active');
+
+                if (resetTimerID) {
+                    clearTimeout(resetTimerID);
+                    resetTimerID = 0;
+                }
+                var thisObj = $(this);
+                setTimeout(function () {
+                    resetTimerID = 0;
+                    thisObj.addClass('active').removeClass('deactive');
                 }, 200);
             }
         }else{
@@ -537,8 +931,8 @@ var Icon_Change = function(nBtn, name){
 * @param method GET(가져오기), PUT(출력)
 * @param json 예제) { 'TIME1' : '09:52:34', 'TIME2' : '07:52:34', 'TXT-1' : 789 }
 */
-var Text_put = function(json){
-    //console.log('Text_put : ' + json) ;
+var Text_put = function (json) {
+    console.log('Text_put : ' + json);
     var Vars = null ;
     if(json){
         Vars = JSON.parse(json);
@@ -561,6 +955,10 @@ var Text_put = function(json){
             console.log('PUT Not Found -> .SYS-TXT-' + i.toUpperCase());
     }
 };
+
+var Text_Test = function (_name) {
+    console.log('Text_Test ' + _name);
+}
 
 //_name : id or class name
 var Text_get = function (_name) {  
@@ -769,8 +1167,8 @@ var Put_Document_list_bak = function(json, id){
     }
 };
 
-var Put_Anchor = function (id, json) {
-    //console.log('Put_Anchor : ' + id + ", " + json);
+var PutGoodsAnchor = function (id, path, json) {
+    //console.log('Put_Anchor : ' + id + ", " + path + ", " + json);
     var datas = null;
     var Block = $('#' + id);
     var removeAnchor = Block.find('.SYS-BTN-ANCHOR').not('.SYS-BTN-ANCHOR[data-name*="copy"]');
@@ -811,7 +1209,7 @@ var Put_Anchor = function (id, json) {
 
     var len = datas.length ;
     len = ((data[0]+1) >= len) ? len : (data[0]+1);
-    console.log('end :' + len + ', ' + data[0] + ', ' + datas.length);
+    //console.log('end :' + len + ', ' + data[0] + ', ' + datas.length);
     for (var i = 1; i < len; i++) {
         data = datas[i];
         var clone = OriAnchor.clone(true);
@@ -819,7 +1217,7 @@ var Put_Anchor = function (id, json) {
         //clone.css('display', 'block');
         clone.removeAttr('style');
         clone.attr('data-name', data[0]);
-        clone.append($('<img src="' + MY_PATH + 'img_goods/' + data[4] + '"><h3>' + data[1] + '</h3><div class="price">' +
+        clone.append($('<img src="' + path + '/' + data[4] + '"><h3>' + data[1] + '</h3><div class="price">' +
             '<p>' + data[2] + '</p>' +  ((data[3] == '1') ? addImage : '') + '</div>'));
         Block.append(clone);
     }
@@ -827,7 +1225,7 @@ var Put_Anchor = function (id, json) {
 }
 
 var Put_Select_Goods = function (id, json) {
-    //console.log('Put_Anchor : ' + id + ', ' + json);
+    //console.log('Put_Select_Goods : ' + id + ', ' + json);
     var isReturn = false;
     var datas = null;
     var Block = $('#' + id);
@@ -888,8 +1286,8 @@ var Put_Select_Goods = function (id, json) {
     $('#goods_pay').find('.price').text(parseInt(data['price']).toLocaleString('ko-KR'));
 }
 
-var Put_CoffeeAnchor = function (id, _aDatas) {
-    //console.log('Put_CoffeeAnchor : ' + id + ", " + _aDatas);
+var PutManageAnchor = function (id, path, _aDatas) {
+    //console.log('PutManageAnchor : ' + id + ", " + _aDatas);
     var Anchor = $('.SYS-ANCHOR-' + id);
     var removeItem = Anchor.find('.item').not('.item[data-name*="copy"]');
     for (var r of removeItem) {
@@ -904,7 +1302,7 @@ var Put_CoffeeAnchor = function (id, _aDatas) {
 
     var data = null;
     var OriItem = Anchor.find('.item[data-name*="copy"]');
-    console.log('end :' + OriItem.length);
+    //console.log('end :' + OriItem.length);
     if (OriItem.length) {
         for (var i = 0; i < aMenu.length; i++) {
             data = aMenu[i].split(',');
@@ -914,19 +1312,63 @@ var Put_CoffeeAnchor = function (id, _aDatas) {
             clone.find('.edit').attr('data-name', data[0]);
             clone.find('.name').text(data[1]);
             clone.find('.price').html(data[2] + '원<p>(point : ' + data[6] + 'P)</p> ');
-            clone.find('.img').find('img').attr('src', MY_PATH + 'img_goods/' + data[4]);//price
-            if (data[3] == '0') {
+            clone.find('.img').find('img').attr('src', path + '/' + data[4]);//그림경로
+            if (data[9] == '0') { //사용 유무
+                clone.find('.img').find('img').attr('style', 'filter: grayscale(100%)');//그림을 회색으로
+            }
+            if (data[3] == '0') {//샷 추가
                 clone.find('.shot').find('i').removeClass('active').addClass('deactive');
             } else {
                 clone.find('.shot').find('i').removeClass('deactive').addClass('active');
             }
-            clone.find('.shot').find('.coffee').text((parseInt(data[10]) + parseInt(data[11])));
-            clone.find('.shot').find('.milk').text(data[12]);
+            clone.find('.shot').find('.stock').text(data[5]);
+            clone.find('.shot').find('.usage').text(data[7]);
 
             Anchor.append(clone);
         }
     }
     //console.log('Put_Anchor End');
+}
+
+var PutOrderAnchor = function (id, _aDatas) {
+    //console.log('PutOrderAnchor : ' + id + ", " + _aDatas);
+    var Anchor = $('.SYS-ANCHOR-' + id);
+    var removeItem = Anchor.find('.item').not('.item[data-name*="copy"]');
+    for (var r of removeItem) {
+        r.remove();
+    }
+
+    if (!_aDatas.length) {
+        Anchor.find('.result').find('span').text('0');
+        return;
+    }
+    var datas = JSON.parse(_aDatas);
+    Anchor.find('.result').find('span').text(datas.length);
+
+    var OriItem = Anchor.find('.item[data-name*="copy"]');
+    if (OriItem.length) {
+        var clone;
+        var aObjKeys, aObjData;
+        for(var i = 0; i < datas.length; i++){
+            aObjKeys = Object.keys(datas[i]);
+            aObjData = datas[i];
+            clone = OriItem.clone(true);
+            clone.removeAttr('style').removeAttr('data-name');
+            clone.find('.delete').attr('data-name', aObjData['id']);
+            clone.find('.edit').attr('data-name', aObjData['id']);
+            clone.find('.img').attr('data-name', aObjData['id']);
+            clone.find('.img').find('img').attr('src', MY_PATH + 'form/source/m_tableNum' + aObjData['id'] + '.png');//그림경로
+            if (aObjData['using'] == '0') { //사용 유무
+                clone.find('.img').find('img').attr('style', 'filter: grayscale(100%)');//그림을 회색으로
+            }
+            var info = clone.find('.info');
+            info.find('.total').text(aObjData['total']);
+            for(var j = 0; j < (aObjKeys.length - 3); j++){
+                info.append($('<li class="history">' + aObjData[j] + '</li>'));
+            }
+            Anchor.append(clone);
+        }
+    }
 }
 
 var Put_RefundAnchor = function (id, _aDatas) {
@@ -1285,11 +1727,11 @@ var Group_Select = function(_groupID, _select, _num, _color){
             //console.log('GROUP_ID is .'+_groupID+"_"+i + ", " + color);
             Ele = $('.'+_groupID+"_"+i) ;
             Ele.attr('style', 'background-color:' + color);
-            Ele.addClass('active').removeClass('deactive') ;
+            Ele.addClass('choice').removeClass('dechoice') ;
         }
     }else if(_select > 0 && _num < 0){
         Ele = $('.'+_groupID + "_" + _select) ;
-        Ele.addClass('deactive').removeClass('active') ;
+        Ele.addClass('dechoice').removeClass('choice') ;
     }else{
         //console.log('GROUP_ID is y.' + _color + ', ' + _select + ', ' + _num);
         for(var i=1; i <= _num; i++){
@@ -1301,12 +1743,12 @@ var Group_Select = function(_groupID, _select, _num, _color){
 //            }
             if(_select < 0){
                 Ele.removeAttr('style');
-                Ele.addClass('deactive').removeClass('active') ;
+                Ele.addClass('dechoice').removeClass('choice') ;
             }else{
                 if( i == _select ){
-                    Ele.addClass('active').removeClass('deactive') ;
+                    Ele.addClass('choice').removeClass('dechoice') ;
                 }else{
-                    Ele.addClass('deactive').removeClass('active') ;
+                    Ele.addClass('dechoice').removeClass('choice') ;
                 }
             }
         }
@@ -1619,6 +2061,131 @@ function doubleClick_event(data){
 *
 *
 */
+var drawChart = null;
+var drawChartJS = function (_canvas_id, _json) {
+    //console.log("drawChartJS : " + _canvas_id + ", " +  _json);
+    //var ctx = $("#" + _canvas_id);
+    var datas = JSON.parse(_json); //x:"", y:"", y1:""
+    var columns_len = 0 ;
+    var len = Object.keys(datas).length;
+    var aKeys = Object.keys(datas);
+    if(len == 3){
+        var xDatas = datas[aKeys[0]].split(',');
+        var y0Datas = datas[aKeys[1]].split(',');
+        var y1Datas = datas[aKeys[2]].split(',');
+
+        if(drawChart == null){
+            var ctx = document.getElementById(_canvas_id).getContext('2d');
+            drawChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: xDatas,
+                    datasets: [
+                        {
+                            label: 'Torque',
+                            yAxisID: 'y0',
+                            data: y0Datas,
+                            borderColor: 'rgb(75, 192, 192)',
+                            borderWidth: 1,
+                            tension: 0.2
+                        },
+                        {
+                            label: 'Rotator',
+                            yAxisID: 'y1',
+                            data: y1Datas,
+                            borderColor: 'rgb(255, 0, 0)',
+                            borderWidth: 1,
+                            tension: 0.2
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    elements: {
+                        point: {
+                            radius: 0
+                        },
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: {
+                                display: true,
+                                //borderDash: [1, 7],
+                                drawOnChartArea: false,
+                                color: 'rgba(200, 200, 200, 0.5)',
+                                lineWidth: 1
+                            },
+                            ticks: {
+                                color: 'white',
+                                //stepSize: 10 // x축 눈금 간격을 2로 설정
+                                //autoSkipPadding: 2
+                                autoSkip: true
+                            }
+                        },
+                        y0: {
+                            //beginAtZero: true,
+                            position:'left',
+                            ticks: {
+                                color: 'rgb(75, 192, 192)' // 눈금 문자색 설정
+                            },
+                            grid: {
+                                display: true,
+                                //borderDash: [1, 15],
+                                drawOnChartArea: false,
+                                color: 'rgba(200, 200, 200, 0.5)',
+                                lineWidth: 1
+                            }
+                        },
+                        y1: {
+                            //beginAtZero: true,
+                            position:'right',
+                            ticks: {
+                                color: 'rgb(255, 0, 0)' // 눈금 문자색 설정
+                            },
+                            grid: {
+                                display: true,
+                                //borderDash: [1, 15],
+                                drawOnChartArea: false,
+                                color: 'rgba(200, 200, 200, 0.5)',
+                                lineWidth: 1
+                            }
+                        }
+                    }
+                }
+            });
+        }else{
+            drawChart.data.labels = xDatas;
+            //drawChart.datasets
+            drawChart.data.datasets[0].data = y0Datas;
+            drawChart.data.datasets[1].data = y1Datas;
+            drawChart.update('none');
+        }
+        //console.log("drawChartJS : " + _canvas_id + ", datas("+ len +") " +  xDatas+"/" +  y0Datas+"/" +  y1Datas);
+    }
+}
+
+var rotateDIRECT = function (_id, _kinds) {
+    //console.log('rotateDIRECT : ' + _id + ' / ' +  _kinds);
+    var name1 = ".cw" + _id;
+    var name2 = ".ccw" + _id;
+//    var ele1 = document.getElementById(name1);
+//    var ele2 = document.getElementById(name2);
+    if(_kinds == 0){
+        $(name1).addClass('hide');
+        $(name2).addClass('hide');
+    }else if(_kinds == 1){
+        $(name1).removeClass('hide');
+        $(name2).addClass('hide');
+    }else{
+        $(name1).addClass('hide');
+        $(name2).removeClass('hide');
+    }
+}
 
 var list_put = function(json, id, _char){
     var datas = null ;
@@ -1924,9 +2491,11 @@ function move_bar(_id, _percent, _kinds) {
     var bar = $('.' + _id);
     //bar.css('height', _percent + '%');
     if (_kinds == 0) {
-        bar.css({'height': _percent + '%', 'top': '7px', 'bottom': '' });
+        bar.css({'height': _percent + '%', 'top': '7px'});
     } else if (_kinds == 1) {
-        bar.css({'height': _percent + '%', 'top': '', 'bottom': '7px' });
+        bar.css({'height': _percent + '%', 'top': (parseInt(_percent) + 3) + '%'});
+    } else {
+        bar.css({'height': _percent + '%', 'top': (parseInt(_percent) * parseInt(_kinds) + 3) + '%'});
     }
 }
 
@@ -2132,15 +2701,15 @@ function freshSel(_id, _json){
     }
 
 };*/
-$(function () {
+//$(function () {
 //_jscss_load("load", "file:///android_asset/js/jquery.jscssfile.min.js") ;
-});
+//});
 /**
 * 모바일 앱과 연동없이 작업시 에러방지
 * 웹개발 모드를 위해서 javascript interface 명을 강제로 선언
 */
-if (typeof Maru_status === 'undefined') var Maru_status = {};
-if (typeof Maru_handle === 'undefined') var Maru_handle = {};
+//if (typeof Maru_status === 'undefined') var Maru_start = {};
+//if (typeof Maru_handle === 'undefined') var Maru_handle = {};
 //if (typeof Maru_design === 'undefined') var Maru_design = {};
 //if (typeof Maru_code === 'undefined') var Maru_code = {};
 //if (typeof Maru_edit === 'undefined') var Maru_edit = {};

@@ -14,6 +14,15 @@ window.addEventListener('load', function () {
             xhttp.send();
         }
     });
+    if (typeof QWebChannel !== 'undefined') {
+        new QWebChannel(qt.webChannelTransport, function(channel) {
+            for (const objName in channel.objects) {
+                if (channel.objects.hasOwnProperty(objName)) {
+                    window[objName] = channel.objects[objName];
+                }
+            }
+        });
+    }
 });
 
 //모바일,태블릿에서 :active 의사 클래스 대체 방안
