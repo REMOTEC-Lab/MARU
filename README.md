@@ -9,11 +9,12 @@ MARU 플랫폼 개발 및 오픈 배경
  * 이와 같은 조건이 필요한, 다른 개발자에게 조금 도움이 될까하고 오픈하였습니다.
 --------------------------------------------------------------------------------------------------------------------------------------------
 MARU platform development and opening background
-  1. A platform that could implement Chromium webview that runs on Windows OS and Android OS was needed.
-  2. Must operate identically on both OS.
+  1. We needed a platform that could implement Chromium WebView that runs on Windows OS, Android OS, and Python (Windows, Linux).
+  2. It should work similarly on 3 OSs (Linux, Android, Windows).
   3. The web view must operate even off-line.
   4. It is an application that runs on each OS, but the UI (user interface) must be colorfully configured by applying web design.
   5. Projects can be carried out by separating algorithm development and design development (through work collaboration).
+  6. The Python version is ideal for AI (artificial intelligence) kiosks.
  
   * I opened this in hopes that it might be of some help to other developers who need these conditions.
 --------------------------------------------------------------------------------------------------------------------------------------------
