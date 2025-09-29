@@ -28,7 +28,7 @@ MARU platform development and opening background
    - https://www.jquerymodal.com/
    - https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js
  3. visual studio 2022 community, C#
- 
+ 4. PySide6 is available under both Open Source (LGPLv3 or GPLv2 or GPLv3) and commercial license.
 
 ** jQuery를 사용하였지만 동작 속도는 아주 빠름. / ** Although jQuery is used, the operation speed is very fast.
 
