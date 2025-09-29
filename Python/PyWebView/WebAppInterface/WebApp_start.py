@@ -1,4 +1,4 @@
-from PyQt6.QtCore import pyqtSlot, QObject, pyqtSignal
+from PySide6.QtCore import Slot, QObject
 import random
 import datetime
 import time
@@ -17,7 +17,7 @@ class WebApp_start(QObject):
         self.th_is_running = False
         self.count = 0
 
-    @pyqtSlot(str)
+    @Slot(str)
     def pageLoaded(self, page):
         ShareData.PAGE = ShareData.PageType.START
         self.m_sPage = page
@@ -28,7 +28,7 @@ class WebApp_start(QObject):
         self.time_thread = threading.Thread(target=self.print_time)
         self.time_thread.start()
 
-    @pyqtSlot(str)
+    @Slot(str)
     def pageEnd(self, page):
         ShareData.OldPAGE = ShareData.PAGE
         ShareData.PAGE = ShareData.PageType.NoPage
@@ -50,7 +50,7 @@ class WebApp_start(QObject):
     def th_close(self):
         self.th_is_running = False
 
-    @pyqtSlot(str)
+    @Slot(str)
     def btn_Data(self, message):
         """
         HTML/JavaScript에서 호출될 Python 함수

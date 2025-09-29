@@ -3,11 +3,11 @@ import os
 import json
 import datetime
 
-from PyQt6.QtWidgets import QApplication, QMainWindow
-from PyQt6.QtWebEngineWidgets import QWebEngineView
-from PyQt6.QtWebEngineCore import QWebEngineProfile, QWebEngineSettings
-from PyQt6.QtWebChannel import QWebChannel
-from PyQt6.QtCore import pyqtSlot, QUrl, Qt, pyqtSignal, QTimer
+from PySide6.QtWidgets import QApplication, QMainWindow
+from PySide6.QtWebEngineWidgets import QWebEngineView
+from PySide6.QtWebEngineCore import QWebEngineProfile, QWebEngineSettings
+from PySide6.QtWebChannel import QWebChannel
+from PySide6.QtCore import Slot, QUrl, Qt, Signal, QTimer
 
 from WebAppInterface.WebApp_start import WebApp_start
 
@@ -16,7 +16,7 @@ from WebAppInterface.WebApp_start import WebApp_start
 os.environ["QTWEBENGINE_REMOTE_DEBUGGING"] = "9222" # 원하는 포트 번호 (일반적으로 9222를 사용)
 
 class MainWindow(QMainWindow):
-    js_signal = pyqtSignal(datetime.datetime)
+    js_signal = Signal(datetime.datetime)
     def __init__(self):
         super().__init__()
         self.jObject = {}
@@ -95,7 +95,7 @@ class MainWindow(QMainWindow):
         #print(self.JsonMultiGetData("TIMER_DAY", _time.strftime('%H시 %M분 %S초')))
         self.text_put(self.JsonMultiGetData("TIMER_DAY", _time.strftime('%H시 %M분 %S초')))
 
-    @pyqtSlot(str)
+    @Slot(str)
     def callPyApp(self, message):
         print(f"HTML에서 호출된 MainWindow의 함수: {message}")
         self.browser.page().runJavaScript("setPythonFunction('this is a test')")
@@ -138,16 +138,16 @@ class MainWindow(QMainWindow):
         #print(js_code)
         self.browser.page().runJavaScript(js_code, self.js_result)
 
-    @pyqtSlot(object)
+    @Slot(object)
     def js_result(self, result):
         """
         JavaScript 실행이 완료된 후 호출되는 콜백 함수
         result는 JavaScript의 반환값
         """
-        if isinstance(result, str):
-            print(f"JavaScript 실행 결과: {result}")
+        if not isinstance(result, str):
+            print(f"JavaScript 실행 결과 (타입: {type(result)}): {result}")
         # else:
-        #     print(f"JavaScript 실행 결과 (타입: {type(result)}): {result}")
+        #    print(f"JavaScript 실행 결과: {result}")
 
 if __name__ == "__main__":
     # -----------------
